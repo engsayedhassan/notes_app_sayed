@@ -16,7 +16,7 @@ class NotesApp extends StatelessWidget {
           title: Text('Notes App'),
         ),
         body: Center(
-          child: Text('Welcome to the Notes App!'),
+          child: Text('Welcome to the Notes App'),
         ),
       ),
     );
