@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:notes_app_sayed/constants.dart';
 
-class CustomButton extends StatelessWidget {
-  const CustomButton({super.key});
+class CustomTextButton extends StatelessWidget {
+  const CustomTextButton({super.key});
 
   @override
   Widget build(BuildContext context) {

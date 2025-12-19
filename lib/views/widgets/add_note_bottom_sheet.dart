@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:notes_app_sayed/constants.dart';
-import 'package:notes_app_sayed/views/widgets/custom_button.dart';
+import 'package:notes_app_sayed/views/widgets/custom_text_button.dart';
 import 'package:notes_app_sayed/views/widgets/custom_text_field.dart';
 
 class AddNoteBottomSheet extends StatelessWidget {
@@ -26,14 +26,16 @@ class AddNoteBottomSheet extends StatelessWidget {
               SizedBox(height: 16),
               CustomTextField(
                 hintText: 'title',
+                color: kPrimaryColor,
               ),
               SizedBox(height: 16),
               CustomTextField(
                 hintText: 'content',
                 maxLines: 4,
+                color: kPrimaryColor,
               ),
               SizedBox(height: 48),
-              CustomButton(),
+              CustomTextButton(),
             ],
           ),
         ),
