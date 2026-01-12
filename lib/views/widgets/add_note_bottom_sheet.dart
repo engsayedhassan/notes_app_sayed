@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:notes_app_sayed/constants.dart';
-import 'package:notes_app_sayed/views/widgets/custom_text_button.dart';
-import 'package:notes_app_sayed/views/widgets/custom_text_field.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import 'package:notes_app_sayed/cubits/add_note_cubit/add_note_cubit.dart';
+import 'package:notes_app_sayed/views/widgets/add_note_form.dart';
 
 class AddNoteBottomSheet extends StatelessWidget {
   const AddNoteBottomSheet({
@@ -14,29 +15,26 @@ class AddNoteBottomSheet extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(12),
         child: SingleChildScrollView(
-          child: Column(
-            children: [
-              Text(
-                'Add Note Screen',
-                style: TextStyle(
-                  fontSize: 18,
-                  color: kPrimaryColor,
-                ),
-              ),
-              SizedBox(height: 16),
-              CustomTextField(
-                hintText: 'title',
-                color: kPrimaryColor,
-              ),
-              SizedBox(height: 16),
-              CustomTextField(
-                hintText: 'content',
-                maxLines: 4,
-                color: kPrimaryColor,
-              ),
-              SizedBox(height: 48),
-              CustomTextButton(),
-            ],
+          child: BlocConsumer<AddNoteCubit, AddNoteState>(
+            listener: (context, state) {
+              if (state is AddNoteFailer) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(state.errorMessage),
+                  ),
+                );
+              }
+              if (state is AddNoteSuccess) {
+                Navigator.pop(context);
+              }
+            },
+            builder: (context, state) {
+              return ModalProgressHUD(
+                // ignore: unnecessary_type_check
+                inAsyncCall: state is AddNoteLoading ? true : false,
+                child: const AddNoteForm(),
+              );
+            },
           ),
         ),
       ),
