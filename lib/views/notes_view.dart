@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:notes_app_sayed/cubits/read_notes_cubit/read_notes_cubit.dart';
 import 'package:notes_app_sayed/views/widgets/add_note_bottom_sheet.dart';
 import 'package:notes_app_sayed/views/widgets/notes_view_body.dart';
 
@@ -7,27 +9,30 @@ class NotesView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          showModalBottomSheet(
-            isScrollControlled: true,
-            context: context,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.vertical(top: Radius.circular(25.0)),
-            ),
-            builder: (context) {
-              return AddNoteBottomSheet();
-            },
-          );
-        },
-        backgroundColor: Colors.lightBlueAccent,
-        child: Icon(
-          Icons.add,
-          color: Colors.white,
+    return BlocProvider(
+      create: (context) => ReadNotesCubit()..fetchAllNotes(),
+      child: Scaffold(
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            showModalBottomSheet(
+              isScrollControlled: true,
+              context: context,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.vertical(top: Radius.circular(25.0)),
+              ),
+              builder: (context) {
+                return AddNoteBottomSheet();
+              },
+            );
+          },
+          backgroundColor: Colors.lightBlueAccent,
+          child: Icon(
+            Icons.add,
+            color: Colors.white,
+          ),
         ),
+        body: NotesViewBody(),
       ),
-      body: NotesViewBody(),
     );
   }
 }
